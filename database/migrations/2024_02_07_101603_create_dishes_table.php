@@ -16,7 +16,7 @@ return new class extends Migration
 						$table->foreignId('categories_id')->constrained('categories');
 						$table->string('name');
 						$table->text('cooking');
-						$table->string('time');
+						$table->unsignedInteger('time');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('foods_and_parts');
+        Schema::dropIfExists('dishes');
     }
 };
