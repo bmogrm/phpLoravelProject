@@ -29,7 +29,8 @@
 				</td>
 			</tr>
 		@endforeach
-		<button><a href="{{url('dish/create')}}">Создать</a></button>
 	</table>
+	<button><a href="{{url('dish/create')}}">Создать</a></button>
+	{{$dishes->links()}}
 </body>
 </html>

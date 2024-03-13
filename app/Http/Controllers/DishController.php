@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 
 class DishController extends Controller
 {
-		public function index()
+		public function index(Request $request)
 		{
+			$perpage = $request->perpage ?? 3;
 			return view('dishes', [
-				'dishes' => Dish::all()
+				'dishes' => Dish::paginate($perpage)->withQueryString()
 			]);
 		}
 
