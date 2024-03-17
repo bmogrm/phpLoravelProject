@@ -7,7 +7,7 @@
 	<title>609-11</title>
 </head>
 <body>
-	<h2>{{$dish ? "Список ингредиентов блюда " .$dish->name : 'Неверное id блюда'}}</h2>
+	<h2>{{$dish ? "Рецепт приготовления - " .$dish->name : 'Неверное id блюда'}}</h2>
 	@if($dish)
 	<table border='1'>
 		<tr>

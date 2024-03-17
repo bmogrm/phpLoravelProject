@@ -8,6 +8,8 @@
 </head>
 <body>
 	<h2>Список блюд:</h2>
+	{{$dishes->links()}}
+	<br>
 	<table border="1">
 		<thead>
 			<td>id</td>
@@ -24,13 +26,16 @@
 				<td>{{$dish->cooking}}</td>
 				<td>{{$dish->time}}</td>
 				<td>
-					<a href="{{url('dish/destroy/'.$dish->id)}}">Удалить</a>
+					<a href="{{url('dish/destroy/'.$dish->id.'-'.$dish->name)}}">Удалить</a>
 					<a href="{{url('dish/edit/'.$dish->id)}}">Редактировать</a>
 				</td>
 			</tr>
 		@endforeach
 	</table>
-	<button><a href="{{url('dish/create')}}">Создать</a></button>
-	{{$dishes->links()}}
+	<br>
+	<button><a href="{{url('dish/create')}}">Добавить блюдо</a></button>
+	<br>
+	<br>
+	<a href="{{url('logout')}}">Выйти из системы</a>
 </body>
 </html>

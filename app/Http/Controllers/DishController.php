@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Dish;
 use Illuminate\Http\Request;
+// use Gate;
+use Illuminate\Auth\Access\Gate as AccessGate;
+use Illuminate\Support\Facades\Gate as FacadesGate;
 
 class DishController extends Controller
 {
@@ -68,8 +71,13 @@ class DishController extends Controller
 			return redirect('/dishes');
 		}
 
-		public function destroy(string $id)
+		public function destroy(string $id, string $name)
 		{
+			if(! FacadesGate::allows('destroy-dish', Dish::all()->where('id', $id)->first())){
+				return redirect('/error')->with('message',
+					'У вас нет доступа на удаление данной позиции: '. $name.'('.$id.')');
+			}
+
 			Dish::destroy($id);
 			return redirect('/dishes');
 		}
