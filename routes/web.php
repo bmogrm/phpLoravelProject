@@ -16,14 +16,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/hello', function (){
-		return view('hello', ['title' => 'Hello world!']);
-});
-
 //Categories
 Route::get('/categories', [CategoryController::class, 'index'])->middleware('auth');
 Route::get('/category/{id}', [CategoryController::class, 'show'])->middleware('auth');
@@ -40,9 +32,9 @@ Route::get('/dishes', [DishController::class, 'index'])->middleware('auth');
 Route::get('/recipe/{id}', [DishController::class, 'show'])->middleware('auth');
 
 //login
-Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::post('/auth', [LoginController::class, 'authenticate']);
+Route::get('/auth', [LoginController::class, 'index']);
 Route::get('/error', function() {
 	return view ('error', ['message' => session('message')]);
 });
