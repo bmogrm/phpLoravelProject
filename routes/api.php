@@ -17,6 +17,7 @@ Route::get('/categories_total', [CategoryControllerApi::class, 'total']);
 Route::get('/dish', [DishControllerApi::class,'index']);
 Route::get('/dish/{id}', [DishControllerApi::class,'show']);
 Route::get('/dishes_total', [DishControllerApi::class,'total']);
+Route::post('/dish', [DishControllerApi::class, 'store']);
 
 Route::get('/recipe', [RecipeControllerApi::class,'index']);
 Route::get('/recipe/{id}', [RecipeControllerApi::class,'show']);
