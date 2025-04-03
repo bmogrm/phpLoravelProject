@@ -38,27 +38,32 @@ class DishControllerApi extends Controller
             ]);
         }
         $validated = $request->validate([
-            'name' => 'required|unique:dishes|max:255',
+            'name' => 'required|max:255',
             'time' => 'required|numeric|min:1',
-            'image' => 'required|file'
+            'image' => 'required|file',
+            'cooking' => 'required',
+            'category_id' => 'required'
         ]);
         $file = $request->file('image');
         $fileName = rand(1, 100000). '_' . $file->getClientOriginalName();
         try {
-            $path = Storage::disk('s3')->putFileAs('dishes_pictures', $file, $fileName);
+            $path = $file->storeAs(
+                'dishes_pictures',
+                $fileName,
+                's3'
+            );
             $fileUrl = Storage::disk('s3')->url($path);
+            error_log($path);
         }
         catch (Exception $e) {
-            error_log('[S3 Debug]');
-            error_log('Bucket: ' . config('filesystems.disks.s3.bucket'));
-            error_log('FileName: ' . $fileName);
-            error_log('Full Path: ' . $path);
-            error_log('Error: ' . $e->getMessage());
+            error_log($path);
+            
             return response()->json([
                 'code' => 2,
                 'message' => 'Ошибка загрузки файла в хранилище S3',
+                'debug' => $e->getMessage() // Только для разработки!
             ]);
-        };
+        }
         $dish = new Dish($validated);
         $dish->picture_url = $fileUrl;
         $dish->save();
